@@ -1,0 +1,68 @@
+import csv
+import os
+
+# Generate mappings for Chinese characters (basic range) and Cyrillic characters
+unicode_mappings = {}
+
+# Map basic Chinese characters (U+4E00 to U+9FFF)
+for codepoint in range(0x4E00, 0x9FFF + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map basic Cyrillic characters (U+0400 to U+04FF)
+for codepoint in range(0x0400, 0x04FF + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map supplemental Cyrillic characters (U+0500 to U+052F)
+for codepoint in range(0x0500, 0x052F + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map Korean Hangul Syllables (U+AC00 to U+D7A3)
+for codepoint in range(0xAC00, 0xD7A3 + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map Hiragana (U+3040 to U+309F)
+for codepoint in range(0x3040, 0x309F + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map Katakana (U+30A0 to U+30FF)
+for codepoint in range(0x30A0, 0x30FF + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map Katakana Phonetic Extensions (U+31F0 to U+31FF)
+for codepoint in range(0x31F0, 0x31FF + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Map CJK Unified Ideographs (Common Kanji - U+4E00 to U+9FFF)
+for codepoint in range(0x4E00, 0x9FFF + 1):
+    unicode_sequence = f"\\u{codepoint:04x}"
+    character = chr(codepoint)
+    unicode_mappings[unicode_sequence] = character
+
+# Define the CSV file name in the same directory
+csv_file_name = "splunk_input_lookup.csv"
+csv_file_path = os.path.join(os.getcwd(), csv_file_name)
+
+with open(csv_file_path, "w", newline="", encoding="utf-8-sig") as csv_file:
+    writer = csv.writer(csv_file)
+    # Write the header row
+    writer.writerow(["unicode_sequence", "character"])
+    # Write the data rows
+    for unicode_sequence, character in unicode_mappings.items():
+        writer.writerow([unicode_sequence, character])
+
+# Print confirmation
+print("Splunk input lookup CSV saved to: " + csv_file_path)
